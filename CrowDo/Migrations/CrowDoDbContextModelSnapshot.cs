@@ -32,6 +32,9 @@ namespace CrowDo.Migrations
                     b.Property<string>("DescriptionGift")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("FixedPackageAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.ToTable("FundingPackage","core");

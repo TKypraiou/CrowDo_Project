@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowDo.Migrations
 {
-    public partial class initail : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,8 @@ namespace CrowDo.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Deposit = table.Column<decimal>(nullable: false),
-                    DescriptionGift = table.Column<string>(nullable: true)
+                    DescriptionGift = table.Column<string>(nullable: true),
+                    FixedPackageAmount = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,7 +81,6 @@ namespace CrowDo.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectId = table.Column<int>(nullable: false),
                     FundingPackageId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
                     DepositDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -98,13 +98,6 @@ namespace CrowDo.Migrations
                         column: x => x.ProjectId,
                         principalSchema: "core",
                         principalTable: "Project",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProjectFundingPackage_User_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "core",
-                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -126,12 +119,6 @@ namespace CrowDo.Migrations
                 schema: "core",
                 table: "ProjectFundingPackage",
                 column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProjectFundingPackage_UserId",
-                schema: "core",
-                table: "ProjectFundingPackage",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Email",
