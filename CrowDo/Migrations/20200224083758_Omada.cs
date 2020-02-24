@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowDo.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Omada : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,10 +55,10 @@ namespace CrowDo.Migrations
                     Title = table.Column<string>(nullable: true),
                     Budget = table.Column<decimal>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true),
-                    Category = table.Column<int>(nullable: false),
                     CreationDate = table.Column<DateTime>(nullable: false),
-                    StatusProject = table.Column<int>(nullable: false)
+                    StatusProject = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
+                    Category = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,9 +79,10 @@ namespace CrowDo.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProjectId = table.Column<int>(nullable: false),
-                    FundingPackageId = table.Column<int>(nullable: false),
-                    DepositDate = table.Column<DateTime>(nullable: false)
+                    DepositDate = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
+                    ProjectId = table.Column<int>(nullable: true),
+                    FundingPackageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,14 +93,21 @@ namespace CrowDo.Migrations
                         principalSchema: "core",
                         principalTable: "FundingPackage",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProjectFundingPackage_Project_ProjectId",
                         column: x => x.ProjectId,
                         principalSchema: "core",
                         principalTable: "Project",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProjectFundingPackage_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "core",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -119,6 +127,12 @@ namespace CrowDo.Migrations
                 schema: "core",
                 table: "ProjectFundingPackage",
                 column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectFundingPackage_UserId",
+                schema: "core",
+                table: "ProjectFundingPackage",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Email",

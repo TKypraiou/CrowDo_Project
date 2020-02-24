@@ -85,10 +85,13 @@ namespace CrowDo.Migrations
                     b.Property<DateTime>("DepositDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FundingPackageId")
+                    b.Property<int?>("FundingPackageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProjectId")
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -96,6 +99,8 @@ namespace CrowDo.Migrations
                     b.HasIndex("FundingPackageId");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ProjectFundingPackage","core");
                 });
@@ -144,16 +149,16 @@ namespace CrowDo.Migrations
             modelBuilder.Entity("CrowDo.Models.ProjectFundingPackage", b =>
                 {
                     b.HasOne("CrowDo.Models.FundingPackage", "FundingPackage")
-                        .WithMany()
-                        .HasForeignKey("FundingPackageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("ProjectFundingPackage")
+                        .HasForeignKey("FundingPackageId");
 
                     b.HasOne("CrowDo.Models.Project", "Project")
                         .WithMany("ProjectFundingPackages")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("CrowDo.Models.User", "User")
+                        .WithMany("ProjectFundingPackages")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,10 +8,11 @@ namespace CrowDo.Models
     public class FundingPackage
     {
         public int Id { get; set; }
-       // public List<ProjectFundingPackage> ProjectFundingPackage { get; set; }
+       
         public decimal Deposit { get; set; }
         public string DescriptionGift { get; set; }
         public decimal FixedPackageAmount { get; set; }
+        public List<ProjectFundingPackage> ProjectFundingPackage { get; set; }
 
     }
 }

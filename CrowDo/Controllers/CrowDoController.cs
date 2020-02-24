@@ -35,6 +35,14 @@ namespace CrowDo.Controllers
         }
 
 
+
+        [HttpGet]
+        public String Hello()
+        {
+            return "Code girls welcome you!";
+        }
+
+
         //[HttpGet("users / excel /{filename}")]
         //public List<User> GetCustomersFromExcel([FromRoute] string fileName)
         //{
@@ -73,7 +81,7 @@ namespace CrowDo.Controllers
         public User CreateUser(
             [FromBody] CreateUserOptions options)
         {
-            return _userService.CreateUser(options);
+           return _userService.CreateUser(options);
         }
 
         [HttpPut("user/{id}")]

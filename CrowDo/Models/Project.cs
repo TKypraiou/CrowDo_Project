@@ -12,15 +12,14 @@ namespace CrowDo.Models
         public string Title { get; set; }
         public decimal Budget { get; set; }
         public string Description { get; set; }
-        public User User { get; set; }
-        public ProjectCategory Category { get; set; }
         public DateTime CreationDate { get; set; }
         public StatusProject StatusProject { get; set; }           
+
+        public User User { get; set; }
+        public ProjectCategory Category { get; set; }
+    
         public List<ProjectFundingPackage> ProjectFundingPackages{get; set;}
-        //public Project()
-        //{
-        //    CreationDate = DateTime.Now;
-        //    ProjectFundingPackages = new List<ProjectFundingPackage>();
-        //}
+
+        
     }
 }
